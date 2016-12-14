@@ -15,7 +15,7 @@ public class LevelCreator : MonoBehaviour
     public GameObject Debug;
 #endif
 
-    public void CreateLevel(GameObject root, int size)
+    public Level CreateLevel(GameObject root, int size)
     {
         var worldSceme = this.CreateWorldSceme(size);
 
@@ -31,6 +31,18 @@ public class LevelCreator : MonoBehaviour
                 var cell = GameObject.Instantiate<GameObject>(cellTemplate, new Vector3(i, j, 0), Quaternion.identity);
                 cell.transform.parent = root.transform;
             }
+
+        var groundCells = this.FindGroundCell(worldSceme).ToArray();
+
+        return new Level { GroundCells = groundCells };
+    }
+
+    private IEnumerable<Vector2> FindGroundCell(int[][] worldSceme)
+    {
+        for (int i = 0; i < worldSceme.Length; i++)
+            for (int j = 0; j < worldSceme[i].Length; j++)
+                if (worldSceme[i][j] == 1)
+                    yield return new Vector2(i, j);
     }
 
     private int[][] CreateWorldSceme(int size)

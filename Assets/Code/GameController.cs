@@ -19,7 +19,7 @@ namespace Assets.Code
         void Start()
         {
             var levelCreator = this.GetComponent<LevelCreator>();
-            var level = levelCreator.CreateLevel(this.LevelRoot, 15);
+            var level = levelCreator.CreateLevel(this.LevelRoot, 30);
 
             var playerController = this.GetComponent<PlayerController>();
             var player = playerController.CreatePlayer(this.LevelRoot, level);

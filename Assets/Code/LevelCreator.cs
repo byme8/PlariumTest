@@ -19,18 +19,8 @@ public class LevelCreator : MonoBehaviour
     {
         var worldSceme = this.CreateWorldSceme(size);
 
-        for (int i = 0; i < size; i++)
-            for (int j = 0; j < size; j++)
-            {
-                GameObject cellTemplate = null;
-                if (worldSceme[i][j] == 1)
-                    cellTemplate = this.Ground;
-                else
-                    cellTemplate = this.Wall;
-
-                var cell = GameObject.Instantiate<GameObject>(cellTemplate, new Vector3(i, j, 0), Quaternion.identity);
-                cell.transform.parent = root.transform;
-            }
+        this.CreateGameField(root, size, worldSceme);
+        this.CreateBorders(root, size);
 
         var groundCells = this.FindGroundCell(worldSceme).ToArray();
 
@@ -38,6 +28,30 @@ public class LevelCreator : MonoBehaviour
         {
             GroundCells = groundCells
         };
+    }
+
+    private void CreateBorders(GameObject root, int size)
+    {
+        for (int i = 0; i < size + 2; i++)
+        {
+            GameObject.Instantiate(this.Wall, new Vector3(-1, i-1, 0), Quaternion.identity, root.transform);
+            GameObject.Instantiate(this.Wall, new Vector3(size, i-1, 0), Quaternion.identity, root.transform);
+        }
+        for (int i = 0; i < size; i++)
+        {
+            GameObject.Instantiate(this.Wall, new Vector3(i, -1, 0), Quaternion.identity, root.transform);
+            GameObject.Instantiate(this.Wall, new Vector3(i, size, 0), Quaternion.identity, root.transform);
+        }
+    }
+
+    private void CreateGameField(GameObject root, int size, int[][] worldSceme)
+    {
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
+            {
+                if (worldSceme[i][j] != 1)
+                    GameObject.Instantiate<GameObject>(this.Wall, new Vector3(i, j, 0), Quaternion.identity, root.transform);
+            }
     }
 
     private IEnumerable<Vector2> FindGroundCell(int[][] worldSceme)
@@ -52,7 +66,7 @@ public class LevelCreator : MonoBehaviour
     {
         var basePoints = this.GenerateBasePoints(size).Distinct().ToArray();
 
-#if DEBUG
+#if DEBUG_Off
         foreach (var point in basePoints)
             GameObject.Instantiate(this.Debug, new Vector3(point.Coords.x, point.Coords.y, -1), Quaternion.identity);
 #endif

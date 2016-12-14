@@ -14,7 +14,7 @@ namespace Assets.Code.Data
         public Rigidbody Rigibody;
         private Vector2 ForceVector;
 
-        private const float MagicFloat = 8.0f;
+        private const float MagicFloat = 20.0f;
 
         private void Start()
         {

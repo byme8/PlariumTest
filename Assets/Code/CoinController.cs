@@ -46,9 +46,7 @@ namespace Assets.Code
 
         private void CreateCoin(Vector2 coinCoords)
         {
-            var coin = GameObject.Instantiate(this.Coin, new Vector3(coinCoords.x, coinCoords.y, 0), Quaternion.identity);
-            coin.transform.parent = this.CoinRoot.transform;
-
+            var coin = GameObject.Instantiate(this.Coin, new Vector3(coinCoords.x, coinCoords.y, 0), Quaternion.identity, this.CoinRoot.transform);
             var coinEntity = coin.GetComponent<CoinEntity>();
             coinEntity.OnTake += this.CoinEntity_OnTake;
         }

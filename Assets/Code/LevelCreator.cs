@@ -34,7 +34,10 @@ public class LevelCreator : MonoBehaviour
 
         var groundCells = this.FindGroundCell(worldSceme).ToArray();
 
-        return new Level { GroundCells = groundCells };
+        return new Level
+        {
+            GroundCells = groundCells
+        };
     }
 
     private IEnumerable<Vector2> FindGroundCell(int[][] worldSceme)
@@ -102,27 +105,34 @@ public class LevelCreator : MonoBehaviour
 
     private IEnumerable<Edge> GenerateLinks(Point[] points)
     {
-        foreach (var point in points)
+        foreach (Point point in points)
         {
-            var futherPoint = points.
-                OrderBy(o => Vector3.Distance(o.Coords, point.Coords)).
-                //Reverse().
-                Take(3);
+            var ordered = points.
+                OrderBy(o => Vector3.Distance(o.Coords, point.Coords)).ToArray();
+            var nearestPoint = ordered.Take(3);
 
             yield return new Edge
             {
                 FirstIndex = point.Index,
-                SecondIndex = futherPoint.First().Index
+                SecondIndex = nearestPoint.First().Index
             };
 
-            foreach (var closePoint in futherPoint.Skip(1))
+            foreach (var closePoint in nearestPoint.Skip(1))
             {
-                //if (this.Random.NextDouble() > 0.7)
-                    yield return new Edge
-                    {
-                        FirstIndex = point.Index,
-                        SecondIndex = closePoint.Index
-                    };
+                yield return new Edge
+                {
+                    FirstIndex = point.Index,
+                    SecondIndex = closePoint.Index
+                };
+            }
+
+            foreach (var futherPoint in ordered.Reverse().Take(3).Where(o => this.Random.NextDouble() > 0.9))
+            {
+                yield return new Edge
+                {
+                    FirstIndex = point.Index,
+                    SecondIndex = futherPoint.Index
+                };
             }
         }
     }

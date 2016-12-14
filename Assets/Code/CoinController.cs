@@ -12,6 +12,8 @@ namespace Assets.Code
     {
         public GameObject Coin;
         public GameObject CoinRoot;
+        public int TakedCoins;
+
 
         public Vector2[] GroundCells;
         public List<Vector2> UsedGroundCells;
@@ -31,6 +33,9 @@ namespace Assets.Code
             while (true)
             {
                 yield return wait;
+                if (this.UsedGroundCells.Count > 9)
+                    continue;
+
                 var freeCells = this.GroundCells.Except(this.UsedGroundCells).ToArray();
                 var coinCoords = freeCells[rand.Next(0, freeCells.Length - 1)];
                 this.UsedGroundCells.Add(coinCoords);
@@ -53,7 +58,9 @@ namespace Assets.Code
             var coin = sender as CoinEntity;
             coin.OnTake -= this.CoinEntity_OnTake;
 
+            this.TakedCoins++;
             this.UsedGroundCells.Remove(new Vector2(coin.transform.position.x, coin.transform.position.y));
+            Debug.Log("Coins: " + this.TakedCoins);
 
             GameObject.Destroy(coin.gameObject);
         }

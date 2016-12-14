@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Code.Data;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace Assets.Code
 {
     [RequireComponent(typeof(LevelCreator))]
     [RequireComponent(typeof(CoinController))]
+    [RequireComponent(typeof(PlayerController))]
+    [RequireComponent(typeof(UserInputController))]
     public class GameController : MonoBehaviour
     {
         public GameObject LevelRoot;
@@ -15,7 +18,13 @@ namespace Assets.Code
         void Start()
         {
             var levelCreator = this.GetComponent<LevelCreator>();
-            var level = levelCreator.CreateLevel(this.LevelRoot, 10);
+            var level = levelCreator.CreateLevel(this.LevelRoot, 20);
+
+            var playerController = this.GetComponent<PlayerController>();
+            var player = playerController.CreatePlayer(this.LevelRoot, level);
+
+            var userInputController = this.GetComponent<UserInputController>();
+            userInputController.Player = player.GetComponent<PlayerEntity>();
 
             this.CoinController = this.GetComponent<CoinController>();
             this.CoinController.GroundCells = level.GroundCells;

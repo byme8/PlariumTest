@@ -17,10 +17,9 @@ namespace Assets.Code.Spawners
 
         public Vector2[] GroundCells;
         public List<Vector2> UsedGroundCells;
+        public CoinController CoinController;
 
         private Coroutine CoinGeneratorCoroutine;
-
-        public CoinController CoinController;
 
         private void Start()
         {
@@ -57,10 +56,9 @@ namespace Assets.Code.Spawners
 
         private void CreateCoin(Vector2 coinCoords)
         {
-            var coin = GameObject.Instantiate(this.Coin, new Vector3(coinCoords.x, coinCoords.y, 0), Quaternion.identity, this.CoinRoot.transform);
-            var coinEntity = coin.GetComponent<CoinEntity>();
-            coinEntity.OnTake += this.CoinEntity_OnTake;
-            coinEntity.OnTake += this.CoinController.CoinEntity_OnTake;
+            var coin = this.Coin.Create<CoinEntity>(coinCoords, this.CoinRoot.transform);
+            coin.OnTake += this.CoinEntity_OnTake;
+            coin.OnTake += this.CoinController.CoinEntity_OnTake;
         }
 
         private void CoinEntity_OnTake(object sender, EventArgs e)

@@ -11,14 +11,10 @@ namespace Assets.Code.Spawner
     {
         public GameObject Player;
 
-        public GameObject CreatePlayer(GameObject root, Level level)
+        public PlayerEntity CreatePlayer(GameObject root, Level level)
         {
             var coords = level.GroundCells.GetRandom();
-
-            var player = GameObject.Instantiate<GameObject>(this.Player, new Vector3(coords.x, coords.y, -0.1f), Quaternion.identity);
-            player.transform.parent = root.transform;
-
-            return player;
+            return this.Player.Create<PlayerEntity>(new Vector3(coords.x, coords.y, -0.1f), root.transform);
         }
     }
 }

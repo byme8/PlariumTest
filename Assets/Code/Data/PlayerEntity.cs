@@ -32,7 +32,7 @@ namespace Assets.Code.Data
             {
                 // Avoid allocations
                 this.ForceVector.x = horizontal * MagicFloat;
-                this.ForceVector.y = vertical * MagicFloat;
+                this.ForceVector.z = vertical * MagicFloat;
                 this.Rigibody.AddForce(this.ForceVector);
             }
         }

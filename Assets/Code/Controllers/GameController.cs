@@ -18,7 +18,7 @@ namespace Assets.Code.Controllers
         public Camera Camera;
 
 
-        void Awake()
+        IEnumerator Start()
         {
             var levelCreator = this.GetComponent<LevelCreator>();
             var level = levelCreator.CreateLevel(this.LevelRoot, 30);
@@ -35,7 +35,14 @@ namespace Assets.Code.Controllers
             coinController.GroundCells = level.GroundCells;
             coinController.StartCoinGeneration();
 
-            var zombieController = this.GetComponent<ZombieSpawner>();
+            var zombieSpawner = this.GetComponent<ZombieSpawner>();
+            zombieSpawner.LevelRoot = LevelRoot.transform;
+            zombieSpawner.Level = level;
+
+            var zombie = zombieSpawner.CreateZombie();
+            var coord = level.GroundCells.GetRandom();
+            yield return new WaitForSeconds(1);
+            zombie.StartFollowing(player);
         }
     }
 }

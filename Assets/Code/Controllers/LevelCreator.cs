@@ -34,13 +34,13 @@ public class LevelCreator : MonoBehaviour
     {
         for (int i = 0; i < size + 2; i++)
         {
-            GameObject.Instantiate(this.Wall, new Vector3(-1, i - 1, 0), Quaternion.identity, root.transform);
-            GameObject.Instantiate(this.Wall, new Vector3(size, i - 1, 0), Quaternion.identity, root.transform);
+            this.Wall.Create(new Vector3(-1, i - 1, 0), root.transform);
+            this.Wall.Create(new Vector3(size, i - 1, 0), root.transform);
         }
         for (int i = 0; i < size; i++)
         {
-            GameObject.Instantiate(this.Wall, new Vector3(i, -1, 0), Quaternion.identity, root.transform);
-            GameObject.Instantiate(this.Wall, new Vector3(i, size, 0), Quaternion.identity, root.transform);
+            this.Wall.Create(new Vector3(i, -1, 0), root.transform);
+            this.Wall.Create(new Vector3(i, size, 0), root.transform);
         }
     }
 
@@ -50,7 +50,7 @@ public class LevelCreator : MonoBehaviour
             for (int j = 0; j < size; j++)
             {
                 if (worldSceme[i][j] != 1)
-                    GameObject.Instantiate<GameObject>(this.Wall, new Vector3(i, j, 0), Quaternion.identity, root.transform);
+                    this.Wall.Create(new Vector3(i, j, 0), root.transform);
             }
     }
 

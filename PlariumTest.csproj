@@ -78,7 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Controllers\CoinController.cs" />
+    <Compile Include="Assets\Code\Data\Core\Vector3T.cs" />
     <Compile Include="Assets\Code\Mechanichs\CoinReceiver.cs" />
+    <Compile Include="Assets\Code\Pathfinding\Pathfinder.cs" />
     <Compile Include="Assets\Code\Spawners\CoinSpawner.cs" />
     <Compile Include="Assets\Code\Data\CoinEntity.cs" />
     <Compile Include="Assets\Code\Data\Level.cs" />

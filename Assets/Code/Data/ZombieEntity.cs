@@ -1,32 +1,63 @@
-﻿using Assets.Code;
-using Assets.Code.Data;
+﻿using Assets.Code.Data;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class ZombieEntity : MonoBehaviour
 {
-    void Start()
+    public NavMeshAgent Agent;
+
+    public void StartWalk(Level level)
     {
-        this.StartCoroutine(this.StartFollowingCoroutine());
+        this.StartCoroutine(this.StartWalkCoroutine(level));
     }
 
-    public void StartWalk()
+    public void StartFollowing(PlayerEntity player)
     {
-
+        this.StartCoroutine(this.StartFollowingCoroutine(player));
     }
 
-    private IEnumerator StartWalkCoroutine()
+    public void StopWalking()
     {
-        throw new NotImplementedException();
+        this.StopAllCoroutines();
     }
 
-    private IEnumerator StartFollowingCoroutine()
+    private IEnumerator StartWalkCoroutine(Level level)
     {
-        throw new NotImplementedException();
+        var navigationPath = new NavMeshPath();
+        var wait = new WaitForFixedUpdate();
+        while (true)
+        {
+            var cell = level.GroundCells.GetRandom();
+            var coord = new Vector3(cell.x, 0, cell.y);
+            this.Agent.CalculatePath(coord, navigationPath);
+            foreach (var point in navigationPath.corners)
+            {
+                while (Vector3.Distance(point, this.transform.position) > 0.01)
+                {
+                    this.transform.Translate((point - this.transform.position).normalized * Time.fixedDeltaTime);
+                    yield return wait;
+                }
+
+                this.transform.position = point;
+            }
+        }
+    }
+
+    private IEnumerator StartFollowingCoroutine(PlayerEntity player)
+    {
+        var navigationPath = new NavMeshPath();
+        var wait = new WaitForFixedUpdate();
+        while (true)
+        {
+            var coord = player.transform.position;
+            this.Agent.CalculatePath(coord, navigationPath);
+            this.transform.Translate((navigationPath.corners[1] - this.transform.position).normalized * Time.fixedDeltaTime);
+
+            yield return wait;
+        }
     }
 
 }

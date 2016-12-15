@@ -41,6 +41,8 @@ namespace Assets.Code.Controllers
 
         public void StartGame()
         {
+            this.ClearLevel();
+
             var level = this.LevelCreator.CreateLevel(this.LevelRoot, 30);
             var player = this.PayerController.CreatePlayer(this.LevelRoot, level);
             this.Camera.transform.parent = player.transform;
@@ -54,8 +56,17 @@ namespace Assets.Code.Controllers
             this.StartCoroutine(this.StartStoryCoroutine(level, player));
         }
 
+        private void ClearLevel()
+        {
+            this.Camera.transform.parent = null;
+            foreach (Transform child in this.LevelRoot.transform)
+                GameObject.Destroy(child.gameObject);
+        }
+
         private IEnumerator StartStoryCoroutine(Level level, PlayerEntity player)
         {
+            yield return new WaitForSeconds(1);
+
             var firstZombie = this.ZombieSpawner.CreateZombie();
             firstZombie.StartWalk(level);
 
@@ -64,20 +75,42 @@ namespace Assets.Code.Controllers
             var secondZombie = this.ZombieSpawner.CreateZombie();
             secondZombie.StartWalk(level);
 
-            yield return new WaitWhile(() => this.CoinController.Coins < 20);
+            yield return new WaitWhile(() => this.CoinController.Coins < 10);
 
-            foreach (var zombie in new[]{ firstZombie, secondZombie })
+            var mummy = this.ZombieSpawner.CreateMummy();
+            secondZombie.StartWalk(level);
+
+            yield return new WaitWhile(() => this.CoinController.Coins < 11);
+
+            var zombies = new[] { firstZombie, secondZombie, mummy };
+
+            foreach (var zombie in zombies)
             {
                 zombie.StopWalking();
                 zombie.StartFollowing(player);
+            }
+
+            var currentCoins = this.CoinController.Coins;
+
+            while (true)
+            {
+                yield return new WaitWhile(() => this.CoinController.Coins == currentCoins);
+                foreach (var zombie in zombies)
+                    zombie.Speed *= 1.05f;
+
+                currentCoins = this.CoinController.Coins;
             }
         }
 
         public void ZombieEatPlayer()
         {
 
-            var coins = this.CoinController.Coins;
-            Debug.Log("Zombie eat you!");
+        }
+
+        public void MummyEatPlayer()
+        {
+            this.CoinController.Coins = 0;
+            this.ZombieEatPlayer();
         }
     }
 }

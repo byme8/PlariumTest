@@ -140,6 +140,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelRoot: {fileID: 1480634959}
   Camera: {fileID: 175069696}
+  CoinController: {fileID: 0}
+  ZombieSpawner: {fileID: 0}
+  CoinSpawner: {fileID: 0}
+  UserInputController: {fileID: 0}
+  PayerController: {fileID: 0}
+  LevelCreator: {fileID: 0}
 --- !u!114 &102317867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Zombie: {fileID: 1710483798217150, guid: 916594d727fa25143add1f335eea2967, type: 2}
+  Mummy: {fileID: 1459329896275458, guid: f1d4aa66b2470c74f94a363e47de42b8, type: 2}
   LevelRoot: {fileID: 1480634960}
 --- !u!1 &175069692
 GameObject:

@@ -67,7 +67,7 @@ namespace Assets.Code.Spawners
             coin.OnTake -= this.CoinEntity_OnTake;
             coin.OnTake -= this.CoinController.CoinEntity_OnTake;
 
-            this.UsedGroundCells.Remove(new Vector2(coin.transform.position.x, coin.transform.position.y));
+            this.UsedGroundCells.Remove(new Vector2(coin.transform.position.x, coin.transform.position.z));
 
             GameObject.Destroy(coin.gameObject);
         }

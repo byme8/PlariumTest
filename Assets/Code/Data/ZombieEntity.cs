@@ -53,13 +53,14 @@ namespace Assets.Code.Data
                 var cell = level.GroundCells.GetRandom();
                 var coord = new Vector3(cell.x, 0, cell.y);
                 this.Agent.CalculatePath(coord, navigationPath);
+
                 foreach (var point in navigationPath.corners)
                 {
-                    //this.CurrentDestination = point;
-                    while (Vector3.Distance(point, this.transform.position) > this.Speed * 0.1f)
+                    this.CurrentDestination = point;
+                    while (Vector3.Distance(point, this.transform.position) > this.Speed * 0.01f)
                     {
                         this.transform.Translate((point - this.transform.position).normalized * Time.fixedDeltaTime * this.Speed);
-                        //this.CurrentPosition = this.transform.position;
+                        this.CurrentPosition = this.transform.position;
                         yield return wait;
                     }
 

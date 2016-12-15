@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Code.Seralization;
 
 namespace Assets.Code.Controllers
 {
@@ -25,6 +26,9 @@ namespace Assets.Code.Controllers
         public UserInputController UserInputController;
         public PlayerSpawner PayerController;
         public LevelCreator LevelCreator;
+        public MenuController MainMenu;
+
+        private float Time;
 
         void Start()
         {
@@ -35,6 +39,7 @@ namespace Assets.Code.Controllers
             this.CoinController = this.GetComponent<CoinController>();
             this.ZombieSpawner = this.GetComponent<ZombieSpawner>();
             this.ZombieSpawner.LevelRoot = this.LevelRoot.transform;
+            this.Camera = UnityEngine.Camera.main;
 
             this.StartGame();
         }
@@ -53,6 +58,7 @@ namespace Assets.Code.Controllers
             this.CoinSpawner.GroundCells = level.GroundCells;
             this.UserInputController.Player = player.GetComponent<PlayerEntity>();
 
+            this.Time = UnityEngine.Time.time;
             this.StartCoroutine(this.StartStoryCoroutine(level, player));
         }
 
@@ -102,15 +108,17 @@ namespace Assets.Code.Controllers
             }
         }
 
-        public void ZombieEatPlayer()
+        public void ZombieEatPlayer(GameEndReason reason = GameEndReason.ZombieDeath)
         {
-
+            this.MainMenu.ShowResults(this.CoinController.Coins, UnityEngine.Time.time - this.Time, reason);
+            this.ClearLevel();
+            GameObject.Destroy(this.gameObject);
         }
 
         public void MummyEatPlayer()
         {
             this.CoinController.Coins = 0;
-            this.ZombieEatPlayer();
+            this.ZombieEatPlayer(GameEndReason.MummyDeath);
         }
     }
 }

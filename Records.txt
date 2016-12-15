@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User Name="asd" Coins="0" Time="2.91181" LaunchTime="2016-12-15T23:31:39.2575229+02:00" Reason="ZombieDeath" />
+  <User Name="123" Coins="0" Time="2.91181" LaunchTime="2016-12-15T23:32:10.636197+02:00" Reason="ZombieDeath" />
+</ArrayOfUser>

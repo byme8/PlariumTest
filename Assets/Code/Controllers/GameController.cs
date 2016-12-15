@@ -80,7 +80,7 @@ namespace Assets.Code.Controllers
             var mummy = this.ZombieSpawner.CreateMummy();
             secondZombie.StartWalk(level);
 
-            yield return new WaitWhile(() => this.CoinController.Coins < 11);
+            yield return new WaitWhile(() => this.CoinController.Coins < 20);
 
             var zombies = new[] { firstZombie, secondZombie, mummy };
 

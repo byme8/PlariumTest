@@ -80,7 +80,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.3
+    agentRadius: 0.4
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -88,7 +88,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.1
+    cellSize: 0.13333334
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: f15700dc58d4e114eb3c2313321d2355, type: 2}
 --- !u!1 &102317864
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e741977f4dce3b4594b2b1467e9fac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TakedCoins: 0
+  Coins: 0
 --- !u!114 &102317870
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,12 +9,12 @@ namespace Assets.Code.Controllers
 {
     public class CoinController : MonoBehaviour
     {
-        public int TakedCoins;
+        public int Coins;
 
         public void CoinEntity_OnTake(object sender, EventArgs e)
         {
-            this.TakedCoins++;
-            Debug.Log("Coins: " + this.TakedCoins);
+            this.Coins++;
+            Debug.Log("Coins: " + this.Coins);
         }
     }
 }

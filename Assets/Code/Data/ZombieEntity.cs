@@ -1,63 +1,85 @@
-﻿using Assets.Code.Data;
+﻿using Assets.Code.Controllers;
+using Assets.Code.Data;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class ZombieEntity : MonoBehaviour
+namespace Assets.Code.Data
 {
-    public NavMeshAgent Agent;
-
-    public void StartWalk(Level level)
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class ZombieEntity : MonoBehaviour
     {
-        this.StartCoroutine(this.StartWalkCoroutine(level));
-    }
+        public NavMeshAgent Agent;
+        public float Speed = 1;
 
-    public void StartFollowing(PlayerEntity player)
-    {
-        this.StartCoroutine(this.StartFollowingCoroutine(player));
-    }
+        // Only for debug 
+        public Vector3 CurrentPosition;
+        public Vector3 CurrentDestination;
 
-    public void StopWalking()
-    {
-        this.StopAllCoroutines();
-    }
 
-    private IEnumerator StartWalkCoroutine(Level level)
-    {
-        var navigationPath = new NavMeshPath();
-        var wait = new WaitForFixedUpdate();
-        while (true)
+        private void OnTriggerEnter(Collider other)
         {
-            var cell = level.GroundCells.GetRandom();
-            var coord = new Vector3(cell.x, 0, cell.y);
-            this.Agent.CalculatePath(coord, navigationPath);
-            foreach (var point in navigationPath.corners)
-            {
-                while (Vector3.Distance(point, this.transform.position) > 0.01)
-                {
-                    this.transform.Translate((point - this.transform.position).normalized * Time.fixedDeltaTime);
-                    yield return wait;
-                }
+            if (other.GetComponent<PlayerEntity>())
+                this.OnPlayerCollide();
+        }
 
-                this.transform.position = point;
+        protected virtual void OnPlayerCollide()
+        {
+            this.GetComponentInParent<GameController>().ZombieEatPlayer();
+        }
+
+        public void StartWalk(Level level)
+        {
+            this.StartCoroutine(this.StartWalkCoroutine(level));
+        }
+
+        public void StartFollowing(PlayerEntity player)
+        {
+            this.StartCoroutine(this.StartFollowingCoroutine(player));
+        }
+
+        public void StopWalking()
+        {
+            this.StopAllCoroutines();
+        }
+
+        private IEnumerator StartWalkCoroutine(Level level)
+        {
+            var navigationPath = new NavMeshPath();
+            var wait = new WaitForFixedUpdate();
+            while (true)
+            {
+                var cell = level.GroundCells.GetRandom();
+                var coord = new Vector3(cell.x, 0, cell.y);
+                this.Agent.CalculatePath(coord, navigationPath);
+                foreach (var point in navigationPath.corners)
+                {
+                    //this.CurrentDestination = point;
+                    while (Vector3.Distance(point, this.transform.position) > this.Speed * 0.1f)
+                    {
+                        this.transform.Translate((point - this.transform.position).normalized * Time.fixedDeltaTime * this.Speed);
+                        //this.CurrentPosition = this.transform.position;
+                        yield return wait;
+                    }
+
+                    this.transform.position = point;
+                }
+            }
+        }
+
+        private IEnumerator StartFollowingCoroutine(PlayerEntity player)
+        {
+            var navigationPath = new NavMeshPath();
+            var wait = new WaitForFixedUpdate();
+            while (true)
+            {
+                var coord = player.transform.position;
+                this.Agent.CalculatePath(coord, navigationPath);
+                this.transform.Translate((navigationPath.corners[1] - this.transform.position).normalized * Time.fixedDeltaTime * this.Speed);
+
+                yield return wait;
             }
         }
     }
-
-    private IEnumerator StartFollowingCoroutine(PlayerEntity player)
-    {
-        var navigationPath = new NavMeshPath();
-        var wait = new WaitForFixedUpdate();
-        while (true)
-        {
-            var coord = player.transform.position;
-            this.Agent.CalculatePath(coord, navigationPath);
-            this.transform.Translate((navigationPath.corners[1] - this.transform.position).normalized * Time.fixedDeltaTime);
-
-            yield return wait;
-        }
-    }
-
 }

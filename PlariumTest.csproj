@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.0b11</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -78,22 +76,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Controllers\CoinController.cs" />
-    <Compile Include="Assets\Code\Data\Core\Vector3T.cs" />
-    <Compile Include="Assets\Code\Mechanichs\CoinReceiver.cs" />
-    <Compile Include="Assets\Code\Pathfinding\Pathfinder.cs" />
-    <Compile Include="Assets\Code\Spawners\CoinSpawner.cs" />
+    <Compile Include="Assets\Code\Controllers\GameController.cs" />
+    <Compile Include="Assets\Code\Controllers\LevelCreator.cs" />
+    <Compile Include="Assets\Code\Controllers\UserInputController.cs" />
     <Compile Include="Assets\Code\Data\CoinEntity.cs" />
+    <Compile Include="Assets\Code\Data\Core\Vector3T.cs" />
     <Compile Include="Assets\Code\Data\Level.cs" />
     <Compile Include="Assets\Code\Data\PlayerEntity.cs" />
     <Compile Include="Assets\Code\Data\ZombieEntity.cs" />
-    <Compile Include="Assets\Code\Controllers\GameController.cs" />
-    <Compile Include="Assets\Code\Controllers\LevelCreator.cs" />
+    <Compile Include="Assets\Code\Mechanichs\CoinReceiver.cs" />
+    <Compile Include="Assets\Code\Spawners\CoinSpawner.cs" />
     <Compile Include="Assets\Code\Spawners\PlayerSpawner.cs" />
-    <Compile Include="Assets\Code\Controllers\UserInputController.cs" />
-    <Compile Include="Assets\Code\Utils.cs" />
     <Compile Include="Assets\Code\Spawners\ZombieSpawner.cs" />
+    <Compile Include="Assets\Code\Utils.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

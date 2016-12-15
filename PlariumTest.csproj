@@ -77,15 +77,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\CoinController.cs" />
+    <Compile Include="Assets\Code\Controllers\CoinController.cs" />
+    <Compile Include="Assets\Code\Mechanichs\CoinReceiver.cs" />
+    <Compile Include="Assets\Code\Spawners\CoinSpawner.cs" />
     <Compile Include="Assets\Code\Data\CoinEntity.cs" />
-    <Compile Include="Assets\Code\Data\PlayerEntity.cs" />
-    <Compile Include="Assets\Code\GameController.cs" />
     <Compile Include="Assets\Code\Data\Level.cs" />
-    <Compile Include="Assets\Code\LevelCreator.cs" />
-    <Compile Include="Assets\Code\PlayerController.cs" />
-    <Compile Include="Assets\Code\UserInputController.cs" />
+    <Compile Include="Assets\Code\Data\PlayerEntity.cs" />
+    <Compile Include="Assets\Code\Data\ZombieEntity.cs" />
+    <Compile Include="Assets\Code\Controllers\GameController.cs" />
+    <Compile Include="Assets\Code\Controllers\LevelCreator.cs" />
+    <Compile Include="Assets\Code\Spawners\PlayerSpawner.cs" />
+    <Compile Include="Assets\Code\Controllers\UserInputController.cs" />
+    <Compile Include="Assets\Code\Utils.cs" />
+    <Compile Include="Assets\Code\Spawners\ZombieSpawner.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

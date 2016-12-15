@@ -1,4 +1,5 @@
-﻿using Assets.Code.Data;
+﻿using Assets.Code.Controllers;
+using Assets.Code.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,19 +7,25 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Code
+namespace Assets.Code.Spawners
 {
-    public class CoinController : MonoBehaviour
+    [RequireComponent(typeof(CoinController))]
+    public class CoinSpawner : MonoBehaviour
     {
         public GameObject Coin;
         public GameObject CoinRoot;
-        public int TakedCoins;
-
 
         public Vector2[] GroundCells;
         public List<Vector2> UsedGroundCells;
 
         private Coroutine CoinGeneratorCoroutine;
+
+        public CoinController CoinController;
+
+        private void Start()
+        {
+            this.CoinController = this.GetComponent<CoinController>();
+        }
 
         public void StartCoinGeneration()
         {
@@ -27,7 +34,6 @@ namespace Assets.Code
 
         private IEnumerator GenerateCoinsCoroutine()
         {
-            var rand = new System.Random();
             var wait = new WaitForSeconds(5);
 
             while (true)
@@ -36,12 +42,17 @@ namespace Assets.Code
                 if (this.UsedGroundCells.Count > 9)
                     continue;
 
-                var freeCells = this.GroundCells.Except(this.UsedGroundCells).ToArray();
-                var coinCoords = freeCells[rand.Next(0, freeCells.Length - 1)];
-                this.UsedGroundCells.Add(coinCoords);
-
+                Vector2 coinCoords = this.CalculateCoinCoords();
                 this.CreateCoin(coinCoords);
             }
+        }
+
+        private Vector2 CalculateCoinCoords()
+        {
+            var freeCells = this.GroundCells.Except(this.UsedGroundCells).ToArray();
+            var coinCoords = freeCells.GetRandom();
+            this.UsedGroundCells.Add(coinCoords);
+            return coinCoords;
         }
 
         private void CreateCoin(Vector2 coinCoords)
@@ -49,16 +60,16 @@ namespace Assets.Code
             var coin = GameObject.Instantiate(this.Coin, new Vector3(coinCoords.x, coinCoords.y, 0), Quaternion.identity, this.CoinRoot.transform);
             var coinEntity = coin.GetComponent<CoinEntity>();
             coinEntity.OnTake += this.CoinEntity_OnTake;
+            coinEntity.OnTake += this.CoinController.CoinEntity_OnTake;
         }
 
         private void CoinEntity_OnTake(object sender, EventArgs e)
         {
             var coin = sender as CoinEntity;
             coin.OnTake -= this.CoinEntity_OnTake;
+            coin.OnTake -= this.CoinController.CoinEntity_OnTake;
 
-            this.TakedCoins++;
             this.UsedGroundCells.Remove(new Vector2(coin.transform.position.x, coin.transform.position.y));
-            Debug.Log("Coins: " + this.TakedCoins);
 
             GameObject.Destroy(coin.gameObject);
         }

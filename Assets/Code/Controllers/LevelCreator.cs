@@ -34,8 +34,8 @@ public class LevelCreator : MonoBehaviour
     {
         for (int i = 0; i < size + 2; i++)
         {
-            GameObject.Instantiate(this.Wall, new Vector3(-1, i-1, 0), Quaternion.identity, root.transform);
-            GameObject.Instantiate(this.Wall, new Vector3(size, i-1, 0), Quaternion.identity, root.transform);
+            GameObject.Instantiate(this.Wall, new Vector3(-1, i - 1, 0), Quaternion.identity, root.transform);
+            GameObject.Instantiate(this.Wall, new Vector3(size, i - 1, 0), Quaternion.identity, root.transform);
         }
         for (int i = 0; i < size; i++)
         {

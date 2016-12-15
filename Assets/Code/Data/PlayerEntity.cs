@@ -12,7 +12,7 @@ namespace Assets.Code.Data
     {
         public Animator Animator;
         public Rigidbody Rigibody;
-        private Vector2 ForceVector;
+        private Vector3 ForceVector;
 
         private const float MagicFloat = 20.0f;
 

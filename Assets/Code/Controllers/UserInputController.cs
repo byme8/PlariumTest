@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Code
+namespace Assets.Code.Controllers
 {
     public class UserInputController : MonoBehaviour
     {

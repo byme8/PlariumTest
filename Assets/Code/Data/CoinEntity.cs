@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Code.Mechanichs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Assets.Code.Data
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerEntity>())
+            if (other.GetComponent<CoinReceiver>())
                 this.OnTake(this, EventArgs.Empty);
         }
     }

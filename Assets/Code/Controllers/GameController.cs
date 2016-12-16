@@ -84,7 +84,7 @@ namespace Assets.Code.Controllers
             yield return new WaitWhile(() => this.CoinController.Coins < 10);
 
             var mummy = this.ZombieSpawner.CreateMummy();
-            secondZombie.StartWalk(level);
+            mummy.StartWalk(level);
 
             yield return new WaitWhile(() => this.CoinController.Coins < 20);
 

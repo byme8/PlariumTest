@@ -15,7 +15,7 @@ namespace Assets.Code.Data
 
         protected override void OnPlayerCollide()
         {
-            this.GetComponent<GameController>().MummyEatPlayer();
+            this.GetComponentInParent<GameController>().MummyEatPlayer();
         }
     }
 }

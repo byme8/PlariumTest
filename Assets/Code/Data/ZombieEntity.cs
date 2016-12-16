@@ -1,5 +1,6 @@
 ﻿using Assets.Code.Controllers;
 using Assets.Code.Data;
+using Boo.Lang;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -57,7 +58,7 @@ namespace Assets.Code.Data
                 foreach (var point in navigationPath.corners)
                 {
                     this.CurrentDestination = point;
-                    while (Vector3.Distance(point, this.transform.position) > this.Speed * 0.01f)
+                    while (Vector3.Distance(point, this.transform.position) > (Time.fixedDeltaTime * this.Speed) * 2)
                     {
                         this.transform.Translate((point - this.transform.position).normalized * Time.fixedDeltaTime * this.Speed);
                         this.CurrentPosition = this.transform.position;

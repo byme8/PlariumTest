@@ -65,11 +65,6 @@ public class LevelCreator : MonoBehaviour
     private int[][] CreateWorldSceme(int size)
     {
         var basePoints = this.GenerateBasePoints(size).Distinct().ToArray();
-
-#if DEBUG_Off
-        foreach (var point in basePoints)
-            GameObject.Instantiate(this.Debug, new Vector3(point.Coords.x, point.Coords.y, -1), Quaternion.identity);
-#endif
         var linksBetweenPoints = this.GenerateLinks(basePoints).ToArray();
 
         var worldSceme = new int[size][];
@@ -119,42 +114,48 @@ public class LevelCreator : MonoBehaviour
 
     private IEnumerable<Edge> GenerateLinks(Point[] points)
     {
+        var links = new List<Edge>();
         foreach (Point point in points)
         {
-            var ordered = points.
-                OrderBy(o => Vector3.Distance(o.Coords, point.Coords)).ToArray();
-            var nearestPoint = ordered.Take(3);
+            // Find all links with the point
+            var alreadyLinkedPointIndexes = links.
+                Where(o => o.SecondIndex == point.Index).Select(o => o.FirstIndex).Distinct().ToList();
 
-            yield return new Edge
+            var alreadyLinkedPoints = points.Where(o => alreadyLinkedPointIndexes.Any(index => index == o.Index));
+
+            // Remove linked points and order points by distance
+            var ordered = points.Except(alreadyLinkedPoints).
+                OrderBy(o => Vector3.Distance(o.Coords, point.Coords)).ToArray();
+
+            // Skip current point and take next points
+            var nearestPoints = ordered.
+                Skip(1).
+                Take(5);
+
+            // Always create link to 'nearest' point
+            links.Add(new Edge
             {
                 FirstIndex = point.Index,
-                SecondIndex = nearestPoint.First().Index
-            };
+                SecondIndex = nearestPoints.First().Index
+            });
 
-            foreach (var closePoint in nearestPoint.Skip(1))
+            // Skip the 'nearest' point and create links with some probability
+            foreach (var closePoint in nearestPoints.Skip(1).Where(o => this.Random.NextDouble() > 0.7))
             {
-                yield return new Edge
+                links.Add(new Edge
                 {
                     FirstIndex = point.Index,
                     SecondIndex = closePoint.Index
-                };
-            }
-
-            foreach (var futherPoint in ordered.Reverse().Take(3).Where(o => this.Random.NextDouble() > 0.9))
-            {
-                yield return new Edge
-                {
-                    FirstIndex = point.Index,
-                    SecondIndex = futherPoint.Index
-                };
+                });
             }
         }
+
+        return links;
     }
 
     private IEnumerable<Point> GenerateBasePoints(int size)
     {
-        var count = size;
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < size; i++)
             yield return new Point
             {
                 Index = i,

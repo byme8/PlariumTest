@@ -1,3 +1,5 @@
 ﻿/Temp
 /Library
-/.vs/PlariumTest/v15
+/.vs
+*.sln
+*.csproj

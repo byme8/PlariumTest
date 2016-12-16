@@ -16,7 +16,7 @@ namespace Assets.Code.Spawners
         public GameObject CoinRoot;
 
         public Vector2[] GroundCells;
-        public List<Vector2> UsedGroundCells;
+        public List<CoinEntity> Coins;
         public CoinController CoinController;
 
         private Coroutine CoinGeneratorCoroutine;
@@ -38,7 +38,7 @@ namespace Assets.Code.Spawners
             while (true)
             {
                 yield return wait;
-                if (this.UsedGroundCells.Count > 9)
+                if (this.Coins.Count > 9)
                     continue;
 
                 Vector2 coinCoords = this.CalculateCoinCoords();
@@ -48,17 +48,19 @@ namespace Assets.Code.Spawners
 
         private Vector2 CalculateCoinCoords()
         {
-            var freeCells = this.GroundCells.Except(this.UsedGroundCells).ToArray();
+            var freeCells = this.GroundCells.Except(this.Coins.Select(o => o.Coords)).ToArray();
             var coinCoords = freeCells.GetRandom();
-            this.UsedGroundCells.Add(coinCoords);
             return coinCoords;
         }
 
         private void CreateCoin(Vector2 coinCoords)
         {
             var coin = this.Coin.Create<CoinEntity>(coinCoords, this.CoinRoot.transform);
+            coin.Coords = coinCoords;
             coin.OnTake += this.CoinEntity_OnTake;
             coin.OnTake += this.CoinController.CoinEntity_OnTake;
+
+            this.Coins.Add(coin);
         }
 
         private void CoinEntity_OnTake(object sender, EventArgs e)
@@ -67,7 +69,7 @@ namespace Assets.Code.Spawners
             coin.OnTake -= this.CoinEntity_OnTake;
             coin.OnTake -= this.CoinController.CoinEntity_OnTake;
 
-            this.UsedGroundCells.Remove(new Vector2(coin.transform.position.x, coin.transform.position.z));
+            this.Coins.Remove(coin);
 
             GameObject.Destroy(coin.gameObject);
         }

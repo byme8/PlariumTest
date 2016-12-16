@@ -13,4 +13,6 @@
   <Record Name="asdf" Coins="0" Time="178.30838" LaunchTime="2016-12-16T11:59:37.5327772+02:00" Reason="ZombieDeath" />
   <Record Name="asdf" Coins="2" Time="45.4857025" LaunchTime="2016-12-16T12:01:02.4114649+02:00" Reason="ZombieDeath" />
   <Record Name="asdf" Coins="0" Time="3.33521414" LaunchTime="2016-12-16T12:01:26.1168528+02:00" Reason="ZombieDeath" />
+  <Record Name="asdf" Coins="1" Time="11.4158859" LaunchTime="2016-12-16T12:36:16.9840941+02:00" Reason="ZombieDeath" />
+  <Record Name="asdf" Coins="0" Time="147.9702" LaunchTime="2016-12-16T12:50:27.5744109+02:00" Reason="MummyDeath" />
 </ArrayOfRecord>

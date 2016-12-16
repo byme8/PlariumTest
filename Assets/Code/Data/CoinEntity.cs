@@ -10,6 +10,7 @@ namespace Assets.Code.Data
     public class CoinEntity : MonoBehaviour
     {
         public event EventHandler OnTake;
+        public Vector2 Coords;
 
         private void OnTriggerEnter(Collider other)
         {

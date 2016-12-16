@@ -5,9 +5,9 @@ public static class Utils
 {
     private static System.Random Random = new System.Random();
 
-    public static Vector2 GetRandom(this Vector2[] list)
+    public static TValue GetRandom<TValue>(this TValue[] array)
     {
-        return list[Random.Next(0, list.Length - 1)];
+        return array[Random.Next(0, array.Length - 1)];
     }
 
     public static TGameObject Create<TGameObject>(this GameObject gameObject, Vector2 position, Transform parent)

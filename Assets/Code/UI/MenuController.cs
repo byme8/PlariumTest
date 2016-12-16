@@ -15,6 +15,10 @@ public class MenuController : MonoBehaviour
 
     private GameController Game;
 
+    private void Start()
+    {
+        this.ShowMainMenu();
+    }
 
     public void NewGame()
     {
@@ -53,6 +57,21 @@ public class MenuController : MonoBehaviour
         this.Buttons.SetActive(false);
         this.Results.SetActive(false);
         this.Records.SetActive(true);
+        this.GameUI.SetActive(false);
+
+        using (var repository = new UserRepository())
+        {
+            var recordsController = this.Records.GetComponent<RecordsController>();
+            recordsController.SetUsers(repository.Users.ToArray());
+            recordsController.Menu = this;
+        }
+    }
+
+    public void ShowMainMenu()
+    {
+        this.Buttons.SetActive(true);
+        this.Results.SetActive(false);
+        this.Records.SetActive(false);
         this.GameUI.SetActive(false);
     }
 

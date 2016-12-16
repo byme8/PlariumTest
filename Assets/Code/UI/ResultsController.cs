@@ -28,7 +28,7 @@ namespace Assets.Code.UI
         public void SetTime(float time)
         {
             this.Time = time;
-            this.CoinsText.text = string.Format("Seconds : {0}", time.ToString());
+            this.TimeText.text = string.Format("Seconds : {0}", time.ToString());
         }
 
         public void Save()

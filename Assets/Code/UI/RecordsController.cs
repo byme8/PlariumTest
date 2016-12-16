@@ -13,7 +13,7 @@ namespace Assets.Code.UI
         public GameObject Row;
         public MenuController Menu;
 
-        public void SetUsers(User[] users)
+        public void SetUsers(Record[] users)
         {
             foreach (Transform row in this.Rows.transform)
                 GameObject.Destroy(row.gameObject);

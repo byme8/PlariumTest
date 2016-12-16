@@ -9,9 +9,8 @@ public class MenuController : MonoBehaviour
 {
     public GameObject GameTemplate;
     public GameObject Buttons;
-    public GameObject Results;
+    public GameObject ChangeName;
     public GameObject Records;
-    public GameObject GameUI;
 
     private GameController Game;
 
@@ -33,36 +32,32 @@ public class MenuController : MonoBehaviour
     public void ShowGameUI()
     {
         this.Buttons.SetActive(false);
-        this.Results.SetActive(false);
+        this.ChangeName.SetActive(false);
         this.Records.SetActive(false);
-        this.GameUI.SetActive(true);
     }
 
-    public void ShowResults(int coins, float time, GameEndReason reason)
+    public void ShowChangeName()
     {
         this.Buttons.SetActive(false);
-        this.Results.SetActive(true);
+        this.ChangeName.SetActive(true);
         this.Records.SetActive(false);
-        this.GameUI.SetActive(false);
 
-        var resutls = this.Results.GetComponent<ResultsController>();
-        resutls.SetCoins(coins);
-        resutls.SetTime(time);
-        resutls.SetFinishReason(reason);
+        var resutls = this.ChangeName.GetComponent<ChangeNameController>();
         resutls.MainMenu = this;
+
+        resutls.UpdateValues();
     }
 
     public void ShowRecords()
     {
         this.Buttons.SetActive(false);
-        this.Results.SetActive(false);
+        this.ChangeName.SetActive(false);
         this.Records.SetActive(true);
-        this.GameUI.SetActive(false);
 
         using (var repository = new UserRepository())
         {
             var recordsController = this.Records.GetComponent<RecordsController>();
-            recordsController.SetUsers(repository.Users.ToArray());
+            recordsController.SetUsers(repository.Records.ToArray());
             recordsController.Menu = this;
         }
     }
@@ -70,9 +65,8 @@ public class MenuController : MonoBehaviour
     public void ShowMainMenu()
     {
         this.Buttons.SetActive(true);
-        this.Results.SetActive(false);
+        this.ChangeName.SetActive(false);
         this.Records.SetActive(false);
-        this.GameUI.SetActive(false);
     }
 
     public void Quit()

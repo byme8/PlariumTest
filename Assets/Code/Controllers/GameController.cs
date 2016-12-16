@@ -110,7 +110,19 @@ namespace Assets.Code.Controllers
 
         public void ZombieEatPlayer(GameEndReason reason = GameEndReason.ZombieDeath)
         {
-            this.MainMenu.ShowResults(this.CoinController.Coins, UnityEngine.Time.time - this.Time, reason);
+            using (var repository = new UserRepository())
+            {
+                repository.Records.Add(new Record
+                {
+                    Name = repository.User.Name,
+                    Coins = this.CoinController.Coins,
+                    Time = UnityEngine.Time.time - this.Time,
+                    LaunchTime = DateTime.Now,
+                    Reason = reason
+                });
+            }
+
+            this.MainMenu.ShowRecords();
             this.ClearLevel();
             GameObject.Destroy(this.gameObject);
         }

@@ -89,6 +89,7 @@
     <Compile Include="Assets\Code\Data\ZombieEntity.cs" />
     <Compile Include="Assets\Code\Mechanichs\CoinReceiver.cs" />
     <Compile Include="Assets\Code\Results\ResultsManager.cs" />
+    <Compile Include="Assets\Code\Seralization\Record.cs" />
     <Compile Include="Assets\Code\Seralization\User.cs" />
     <Compile Include="Assets\Code\Seralization\UserRespository.cs" />
     <Compile Include="Assets\Code\Spawners\CoinSpawner.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Assets\Code\Spawners\ZombieSpawner.cs" />
     <Compile Include="Assets\Code\UI\RecordRowController.cs" />
     <Compile Include="Assets\Code\UI\RecordsController.cs" />
-    <Compile Include="Assets\Code\UI\ResultsController.cs" />
+    <Compile Include="Assets\Code\UI\ChangeNameController.cs" />
     <Compile Include="Assets\Code\Utils.cs" />
     <Compile Include="Assets\Code\UI\MenuController.cs" />
   </ItemGroup>

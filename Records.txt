@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <User Name="asd" Coins="0" Time="5.823069" LaunchTime="2016-12-16T10:08:30.61425+02:00" Reason="ZombieDeath" />
-</ArrayOfUser>
+<ArrayOfRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Record Name="456" Coins="0" Time="3.761325" LaunchTime="2016-12-16T10:37:14.1098081+02:00" Reason="ZombieDeath" />
+  <Record Name="456" Coins="0" Time="15.3208847" LaunchTime="2016-12-16T10:37:37.161832+02:00" Reason="ZombieDeath" />
+  <Record Name="asdf" Coins="0" Time="4.98149872" LaunchTime="2016-12-16T10:37:51.2672347+02:00" Reason="ZombieDeath" />
+</ArrayOfRecord>

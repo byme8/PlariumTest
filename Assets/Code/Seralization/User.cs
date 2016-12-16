@@ -6,45 +6,11 @@ using System.Xml.Serialization;
 
 namespace Assets.Code.Seralization
 {
-    public enum GameEndReason
-    {
-        MummyDeath,
-        ZombieDeath,
-        Quit
-    }
-
+    [Serializable]
     public class User
     {
         [XmlAttribute("Name")]
         public string Name
-        {
-            get;
-            set;
-        }
-
-        [XmlAttribute("Coins")]
-        public int Coins
-        {
-            get;
-            set;
-        }
-
-        [XmlAttribute("Time")]
-        public float Time
-        {
-            get;
-            set;
-        }
-
-        [XmlAttribute("LaunchTime")]
-        public DateTime LaunchTime
-        {
-            get;
-            set;
-        }
-
-        [XmlAttribute("Reason")]
-        public GameEndReason Reason
         {
             get;
             set;

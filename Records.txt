@@ -3,4 +3,7 @@
   <Record Name="456" Coins="0" Time="3.761325" LaunchTime="2016-12-16T10:37:14.1098081+02:00" Reason="ZombieDeath" />
   <Record Name="456" Coins="0" Time="15.3208847" LaunchTime="2016-12-16T10:37:37.161832+02:00" Reason="ZombieDeath" />
   <Record Name="asdf" Coins="0" Time="4.98149872" LaunchTime="2016-12-16T10:37:51.2672347+02:00" Reason="ZombieDeath" />
+  <Record Name="asdf" Coins="2" Time="21.1212025" LaunchTime="2016-12-16T10:41:42.5923645+02:00" Reason="Quit" />
+  <Record Name="asdf" Coins="3" Time="31.87975" LaunchTime="2016-12-16T10:42:39.0662989+02:00" Reason="Quit" />
+  <Record Name="asdf" Coins="10" Time="95.92259" LaunchTime="2016-12-16T10:48:45.1672634+02:00" Reason="ZombieDeath" />
 </ArrayOfRecord>

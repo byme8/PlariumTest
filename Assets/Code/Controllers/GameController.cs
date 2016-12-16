@@ -108,7 +108,7 @@ namespace Assets.Code.Controllers
             }
         }
 
-        public void ZombieEatPlayer(GameEndReason reason = GameEndReason.ZombieDeath)
+        public void SaveResults(GameEndReason reason = GameEndReason.ZombieDeath)
         {
             using (var repository = new UserRepository())
             {
@@ -130,7 +130,13 @@ namespace Assets.Code.Controllers
         public void MummyEatPlayer()
         {
             this.CoinController.Coins = 0;
-            this.ZombieEatPlayer(GameEndReason.MummyDeath);
+            this.SaveResults(GameEndReason.MummyDeath);
+        }
+
+        private void FixedUpdate()
+        {
+            if (Input.GetKey(KeyCode.Escape))
+                this.SaveResults(GameEndReason.Quit);
         }
     }
 }

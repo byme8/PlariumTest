@@ -26,7 +26,7 @@ namespace Assets.Code.Data
 
         protected virtual void OnPlayerCollide()
         {
-            this.GetComponentInParent<GameController>().ZombieEatPlayer();
+            this.GetComponentInParent<GameController>().SaveResults();
         }
 
         public void StartWalk(Level level)
